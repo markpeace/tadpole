@@ -73,22 +73,22 @@ describe Step do
 	
 	describe "should automatically update dates" do
 		before :each do
-			u1=FactoryGirl.create(:step, order:nil, days: 1)
-			u2=FactoryGirl.create(:step, user: u1.user, brew: u1.brew, order:nil, days: 1)	
-			u3=FactoryGirl.create(:step, user: u1.user, brew: u1.brew, order:nil, days: 1)	
+			u1=FactoryGirl.create(:step, order:nil, days: 5)
+			u2=FactoryGirl.create(:step, user: u1.user, brew: u1.brew, order:nil, days: 5)	
+			u3=FactoryGirl.create(:step, user: u1.user, brew: u1.brew, order:nil, days: 5)	
 		end
 		
 		it "should add dates to begin with" do
 			Step.limit(1).last.date.strftime('%Y-%d-%m').should eq('2014-01-01')
-			Step.limit(2).last.date.strftime('%Y-%d-%m').should eq('2014-02-01')
-			Step.limit(3).last.date.strftime('%Y-%d-%m').should eq('2014-03-01')		
+			Step.limit(2).last.date.strftime('%Y-%d-%m').should eq('2014-06-01')
+			Step.limit(3).last.date.strftime('%Y-%d-%m').should eq('2014-11-01')		
 		end
 		
 		it "should update dates when an item is moved" do
 			Step.limit(2).last.move(:up)
 			Step.limit(2).last.date.strftime('%Y-%d-%m').should eq('2014-01-01')
-			Step.limit(1).last.date.strftime('%Y-%d-%m').should eq('2014-02-01')
-			Step.limit(3).last.date.strftime('%Y-%d-%m').should eq('2014-03-01')		
+			Step.limit(1).last.date.strftime('%Y-%d-%m').should eq('2014-06-01')
+			Step.limit(3).last.date.strftime('%Y-%d-%m').should eq('2014-11-01')		
 		end
 		
 	end
