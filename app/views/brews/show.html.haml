@@ -1,0 +1,19 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @brew.user_id
+%p
+  %b Name:
+  = @brew.name
+%p
+  %b Date:
+  = @brew.date
+
+= link_to 'Edit', edit_brew_path(@brew)
+\|
+= link_to 'Back', brews_path
+
+%pre
+  %b BeerXML:
+  =@brew.xml
