@@ -52,3 +52,4 @@ end
 gem 'devise'
 gem 'heroku'
 gem 'haml-rails'
+gem 'nokogiri'

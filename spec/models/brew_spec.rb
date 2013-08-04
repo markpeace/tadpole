@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Brew do
 
+	before :each do
+		User.destroy_all
+	end
+
 	it "should be valid when everything is in place" do
 		FactoryGirl.build(:brew).should be_valid
 	end
@@ -10,8 +14,6 @@ describe Brew do
 	it { should validate_presence_of :user }
 	
 	it { should validate_presence_of :name }
-	
-	pending "write a validator to check presence of brew name in brewtoad"
 
 	describe "it should have a function that scrapes data from brewtoad" do
 	
@@ -21,7 +23,7 @@ describe Brew do
 		end
 	
 		it "should raise an error when a non-valid name is given" do
-			FactoryGirl.build(:brew).should_not be_valid
+			FactoryGirl.build(:brew, name:"this does not exist").should_not be_valid
 		end
 	end
 
