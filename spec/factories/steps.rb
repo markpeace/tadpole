@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :step do
-    user_id 1
-    brew_id 1
+    association :user, :factory=>:user
+    association :brew, :factory=>:brew
     title "MyString"
     days 1
     order 1
