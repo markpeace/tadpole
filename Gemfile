@@ -54,3 +54,6 @@ gem 'heroku'
 gem 'haml-rails'
 gem 'nokogiri'
 gem 'taps'
+
+gem 'simple_form'
+gem 'nested_form'

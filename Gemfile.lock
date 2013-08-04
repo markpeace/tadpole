@@ -105,6 +105,7 @@ GEM
     mime-types (1.23)
     minitest (4.7.5)
     multi_json (1.7.7)
+    nested_form (0.3.2)
     netrc (0.7.7)
     nokogiri (1.5.5)
     orm_adapter (0.4.0)
@@ -165,6 +166,7 @@ GEM
     shoulda-context (1.0.1)
     shoulda-matchers (1.4.1)
       activesupport (>= 3.0.0)
+    simple_form (1.4.1)
     sinatra (1.0)
       rack (>= 1.0)
     sprockets (2.10.0)
@@ -216,6 +218,7 @@ DEPENDENCIES
   heroku
   jbuilder (~> 1.2)
   jquery-rails
+  nested_form
   nokogiri
   pg
   rails (= 4.0.0)
@@ -223,6 +226,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sdoc
   shoulda
+  simple_form
   sqlite3
   taps
   therubyracer
