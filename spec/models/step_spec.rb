@@ -26,32 +26,49 @@ describe Step do
 		u.order.should eq(2)
 	end
 	
-	it "should have re-ordering functions" do 
-		u1=FactoryGirl.create(:step, order:nil, days: 1)
-		u2=FactoryGirl.create(:step, user: u1.user, brew: u1.brew, order:nil, days: 1)	
-		u3=FactoryGirl.create(:step, user: u1.user, brew: u1.brew, order:nil, days: 1)
-		
-		u2.move(:up)
-		u2.order.should eq(1)
-		u1.order.should eq(2)
-		u3.order.should eq(3)
-		
-		u2.move(:up)
-		u2.order.should eq(1)
-		u1.order.should eq(2)
-		u3.order.should eq(3)		
-		
-		u2.move(:down)
-		u1.order.should eq(1)
-		u2.order.should eq(2)
-		u3.order.should eq(3)
+	describe "it should have re-ordering functions" do 
 
-		u3.move(:down)
-		u1.order.should eq(1)
-		u2.order.should eq(2)
-		u3.order.should eq(3)
+		before :each do
+			u1=FactoryGirl.create(:step, order:nil, days: 1)
+			u2=FactoryGirl.create(:step, user: u1.user, brew: u1.brew, order:nil, days: 1)	
+			u3=FactoryGirl.create(:step, user: u1.user, brew: u1.brew, order:nil, days: 1)
+		end
+		
+		it "should be ordered correctly to begin with" do
+			Step.limit(1).last.order.should eq(1)
+			Step.limit(2).last.order.should eq(2)
+			Step.limit(3).last.order.should eq(3)
+		end
+		
+		it "should move up when asked" do
+			Step.limit(2).last.move(:up)
+			Step.limit(1).last.order.should eq(2)
+			Step.limit(2).last.order.should eq(1)
+			Step.limit(3).last.order.should eq(3)			
+		end
 
+		it "shouldn't move up if it's the first" do
+			Step.limit(1).last.move(:up)
+			Step.limit(1).last.order.should eq(1)
+			Step.limit(2).last.order.should eq(2)
+			Step.limit(3).last.order.should eq(3)			
+		end
 
+		it "should move down when asked" do
+			Step.limit(2).last.move(:down)
+			Step.limit(1).last.order.should eq(1)
+			Step.limit(2).last.order.should eq(3)
+			Step.limit(3).last.order.should eq(2)			
+		end
+
+		it "shouldn't move down if it's the last" do
+			Step.limit(3).last.move(:down)
+			Step.limit(1).last.order.should eq(1)
+			Step.limit(2).last.order.should eq(2)
+			Step.limit(3).last.order.should eq(3)			
+		end
+
+		
 	end
 	
 	it "should automatically update dates of self and subsequent when added/updated" do
