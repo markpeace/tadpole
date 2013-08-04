@@ -50,8 +50,5 @@ group :test, :development do
 end
 
 gem 'devise'
-
-
-
 gem 'heroku'
-gem 'haml'
+gem 'haml-rails'
