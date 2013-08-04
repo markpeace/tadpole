@@ -7,13 +7,12 @@
           %li= msg
 
   .field
-    = f.label :user_id
-    = f.number_field :user_id
+    = f.hidden_field :user_id
   .field
     = f.label :name
     = f.text_field :name
   .field
-    = f.label :date
+    = f.label :brew_date
     = f.date_select :date
   .actions
     = f.submit 'Save'

@@ -13,3 +13,7 @@
 = link_to 'Edit', edit_brew_path(@brew)
 \|
 = link_to 'Back', brews_path
+
+%pre
+  %b BeerXML:
+  =@brew.xml

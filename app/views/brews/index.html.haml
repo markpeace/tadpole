@@ -2,16 +2,14 @@
 
 %table
   %tr
-    %th User
     %th Name
-    %th Date
+    %th Brew Date
     %th
     %th
     %th
 
   - @brews.each do |brew|
     %tr
-      %td= brew.user_id
       %td= brew.name
       %td= brew.date
       %td= link_to 'Show', brew

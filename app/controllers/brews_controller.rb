@@ -4,7 +4,7 @@ class BrewsController < ApplicationController
   # GET /brews
   # GET /brews.json
   def index
-    @brews = Brew.all
+    @brews = Brew.where(:user=>current_user).order('date DESC')
   end
 
   # GET /brews/1
@@ -15,6 +15,7 @@ class BrewsController < ApplicationController
   # GET /brews/new
   def new
     @brew = Brew.new
+	@brew.user=current_user
   end
 
   # GET /brews/1/edit
@@ -65,6 +66,7 @@ class BrewsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_brew
       @brew = Brew.find(params[:id])
+	  redirect_to root_path unless @brew.user==current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
