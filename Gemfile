@@ -49,6 +49,9 @@ group :test, :development do
 	gem 'shoulda'
 end
 
+gem 'devise'
+
+
 
 gem 'heroku'
 gem 'haml'
