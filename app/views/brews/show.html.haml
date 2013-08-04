@@ -15,3 +15,6 @@
 \|
 = link_to 'Back', brews_path
 
+= simple_form_for "submit", :url=>"/brew/#{@brew.id}/importsteps" do |f|
+  =f.input :source_brew, collection:@brew.user.brews, :label=>"Import Steps From"
+  =f.submit

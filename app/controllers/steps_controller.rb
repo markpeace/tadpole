@@ -69,6 +69,21 @@ class StepsController < ApplicationController
 	redirect_to steps_path(:brew=>@step.brew.id)
   end
 
+  def clone
+	@target_brew=Brew.find(params[:target_brew])
+	@source_brew=Brew.find(params[:submit][:source_brew])
+	@target_brew.steps.destroy_all
+	
+	@source_brew.steps.each do |s|
+		s2=s.dup
+		s2.brew=@target_brew
+		s2.save
+	end
+	
+	redirect_to steps_path(:brew=>@target_brew.id)
+	
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_step
