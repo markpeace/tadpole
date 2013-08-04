@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :brew do
-    user_id 1
-    name "MyString"
+	association :user, :factory=>:user
+    name "Lenticular"
     date "2013-08-04"
   end
 end
