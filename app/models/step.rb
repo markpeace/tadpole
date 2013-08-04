@@ -30,7 +30,10 @@ class Step < ActiveRecord::Base
 	end
 	
 	
+	after_create :autocalculate_dates
+	after_update :autocalculate_dates
 	def autocalculate_dates
+		Step.where(:brew_id=>:self.brew_id).order(:order).first.update_attributes(:date=>self.brew.date)
 	end
 
 end
