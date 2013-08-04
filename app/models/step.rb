@@ -19,21 +19,24 @@ class Step < ActiveRecord::Base
 			return if self.order==1
 			Step.where(:brew_id=>self.brew_id, :order=>self.order-1).first.update_attributes(:order=>self.order)
 			self.update_attributes(:order=>self.order-1)
-			self.autocalculate_dates
 		elsif direction==:down then
 			return if self.order==Step.where(:brew_id=>self.brew_id).count
 			Step.where(:brew_id=>self.brew_id, :order=>self.order+1).first.update_attributes(:order=>self.order)
 			self.update_attributes(:order=>self.order+1)
-			self.autocalculate_dates
 		end 
-		self.save
+		self.autocalculate_dates
 	end
 	
 	
 	after_create :autocalculate_dates
-	after_update :autocalculate_dates
 	def autocalculate_dates
-		Step.where(:brew_id=>:self.brew_id).order(:order).first.update_attributes(:date=>self.brew.date)
+		d=self.brew.date
+		i=0
+		Step.where(:brew_id=>self.brew_id).order("[order] ASC").each do |s|
+			s.update_attributes(:date=>d + i)
+			i=s.days.to_i
+			d=s.date
+		end
 	end
 
 end

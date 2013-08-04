@@ -80,15 +80,15 @@ describe Step do
 		
 		it "should add dates to begin with" do
 			Step.limit(1).last.date.strftime('%Y-%d-%m').should eq('2014-01-01')
-			#Step.limit(2).last.date.strftime('%Y-%d-%m').should eq('2014-01-02')
-			#Step.limit(3).last.date.strftime('%Y-%d-%m').should eq('2014-01-03')		
+			Step.limit(2).last.date.strftime('%Y-%d-%m').should eq('2014-02-01')
+			Step.limit(3).last.date.strftime('%Y-%d-%m').should eq('2014-03-01')		
 		end
 		
 		it "should update dates when an item is moved" do
-			#Step.limit(2).last.move(:up)
-			#Step.limit(2).last.date.strftime('%Y-%d-%m').should eq('2014-01-02')
-			#Step.limit(1).last.date.strftime('%Y-%d-%m').should eq('2014-01-03')
-			#Step.limit(3).last.date.strftime('%Y-%d-%m').should eq('2014-01-04')		
+			Step.limit(2).last.move(:up)
+			Step.limit(2).last.date.strftime('%Y-%d-%m').should eq('2014-01-01')
+			Step.limit(1).last.date.strftime('%Y-%d-%m').should eq('2014-02-01')
+			Step.limit(3).last.date.strftime('%Y-%d-%m').should eq('2014-03-01')		
 		end
 		
 	end
