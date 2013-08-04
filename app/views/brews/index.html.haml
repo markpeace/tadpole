@@ -7,11 +7,13 @@
     %th
     %th
     %th
+    %th
 
   - @brews.each do |brew|
     %tr
       %td= brew.name
       %td= brew.date
+      %td= link_to 'Steps', steps_path(:brew=>brew.id)
       %td= link_to 'Show', brew
       %td= link_to 'Edit', edit_brew_path(brew)
       %td= link_to 'Destroy', brew, :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -1,10 +1,12 @@
 class StepsController < ApplicationController
-  before_action :set_step, only: [:show, :edit, :update, :destroy]
+  before_action :set_step, only: [:show, :edit, :update, :destroy, :move]
 
   # GET /steps
   # GET /steps.json
   def index
-    @steps = Step.all
+	@brew=Brew.find(params[:brew])
+	redirect_to root_path unless @brew.user==current_user
+    @steps = Step.where(:brew=>@brew).order("[order] ASC")
   end
 
   # GET /steps/1
@@ -15,6 +17,8 @@ class StepsController < ApplicationController
   # GET /steps/new
   def new
     @step = Step.new
+	@step.user=current_user
+	@step.brew_id=params[:brew]
   end
 
   # GET /steps/1/edit
@@ -28,11 +32,9 @@ class StepsController < ApplicationController
 
     respond_to do |format|
       if @step.save
-        format.html { redirect_to @step, notice: 'Step was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @step }
+        format.html { redirect_to steps_path(:brew=>@step.brew_id), notice: 'Step was successfully created.' }
       else
         format.html { render action: 'new' }
-        format.json { render json: @step.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -61,10 +63,16 @@ class StepsController < ApplicationController
     end
   end
 
+  def move
+	@step.move(params[:direction].to_sym)
+	redirect_to steps_path(:brew=>@step.brew.id)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_step
       @step = Step.find(params[:id])
+	  redirect_to root_path unless @step.user=current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
