@@ -44,7 +44,7 @@ class StepsController < ApplicationController
   def update
     respond_to do |format|
       if @step.update(step_params)
-        format.html { redirect_to @step, notice: 'Step was successfully updated.' }
+        format.html { redirect_to steps_path(:brew=>@step.brew.id), notice: 'Step was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,9 +56,10 @@ class StepsController < ApplicationController
   # DELETE /steps/1
   # DELETE /steps/1.json
   def destroy
+	b=@step.brew.id
     @step.destroy
     respond_to do |format|
-      format.html { redirect_to steps_url }
+      format.html { redirect_to steps_url(:brew=>b) }
       format.json { head :no_content }
     end
   end
