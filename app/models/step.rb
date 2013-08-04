@@ -8,5 +8,10 @@ class Step < ActiveRecord::Base
 	
 	validates_presence_of :title
 	validates_presence_of :days
+	
+	before_create :autocalculate_order
+	def autocalculate_order
+		self.order = Step.where(:brew_id=>self.brew_id).count+1
+	end
 
 end
