@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Step do
+
+	before :each do 
+		User.destroy_all
+	end
+
 	it "should be valid when everything is in place" do
 		FactoryGirl.build(:step).should be_valid
 	end

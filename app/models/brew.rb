@@ -1,5 +1,9 @@
 class Brew < ActiveRecord::Base
+	
+	has_many :steps, :dependent=>:destroy	
+	
 	belongs_to :user
+	
 	validates_presence_of :user
 	
 	validates_presence_of :name
