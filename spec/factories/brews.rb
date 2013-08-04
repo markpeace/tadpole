@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :brew do
 	association :user, :factory=>:user
     name "lenticular"
-    date "2013-08-04"
+    date "2014-01-01"
   end
 end
