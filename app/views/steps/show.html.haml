@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @step.user_id
+%p
+  %b Brew:
+  = @step.brew_id
+%p
+  %b Title:
+  = @step.title
+%p
+  %b Days:
+  = @step.days
+%p
+  %b Order:
+  = @step.order
+%p
+  %b Date:
+  = @step.date
+%p
+  %b Completed:
+  = @step.completed
+%p
+  %b Update inventory:
+  = @step.update_inventory
+
+= link_to 'Edit', edit_step_path(@step)
+\|
+= link_to 'Back', steps_path
