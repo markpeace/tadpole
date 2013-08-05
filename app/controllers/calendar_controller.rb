@@ -5,7 +5,7 @@ class CalendarController < ApplicationController
 	include Icalendar
 	
 	def index
-		@steps=Step.where(:user_id=>params[:id]).order("date DESC")
+		@steps=Step.where(:user_id=>params[:id], :completed=>false).order("date DESC")
 		respond_to do |format|
 			format.html { render :index }
 			format.ics do
