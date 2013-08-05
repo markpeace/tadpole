@@ -4,9 +4,10 @@
 
 %table
   %tr
+    %th Start
     %th Title
     %th Days
-    %th Date
+    %th End
     %th Completed
     %th Update inventory
     %th
@@ -17,9 +18,10 @@
 
   - @steps.each do |step|
     %tr
+      %td= step.date
       %td= step.title
       %td= step.days
-      %td= step.date
+      %td= step.date + step.days.days
       %td= step.completed
       %td= step.update_inventory
       %td= link_to 'Edit', edit_step_path(step)
