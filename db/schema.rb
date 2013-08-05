@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20130804162806) do
     t.integer  "days"
     t.integer  "order"
     t.date     "date"
-    t.boolean  "completed"
+    t.boolean  "completed",        default: false
     t.boolean  "update_inventory"
     t.datetime "created_at"
     t.datetime "updated_at"

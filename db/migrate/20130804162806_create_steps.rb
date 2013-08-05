@@ -7,7 +7,7 @@ class CreateSteps < ActiveRecord::Migration
       t.integer :days
       t.integer :order
       t.date :date
-      t.boolean :completed
+      t.boolean :completed, :default=>false
       t.boolean :update_inventory
 
       t.timestamps
