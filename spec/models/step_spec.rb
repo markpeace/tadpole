@@ -103,6 +103,10 @@ describe Step do
 		it "should complete when complete is called" do
 			Step.first.complete
 			Step.first.completed.should be_true
+			Step.limit(2).last.complete
+			Step.limit(2).last.completed.should be_true
+			Step.limit(3).last.complete
+			Step.limit(3).last.completed.should be_true
 		end
 		
 		it "should not complete if prior steps are incomplete" do
@@ -112,7 +116,7 @@ describe Step do
 		
 		it "should ammend the brewdate if it is the first step" do
 			Step.first.complete
-			Step.brew.date.should eq(Date.today)
+			Step.first.brew.date.should eq(Date.today)
 		end
 		
 		it "should change days if completed early or late" do
