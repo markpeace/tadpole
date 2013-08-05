@@ -87,7 +87,9 @@ class StepsController < ApplicationController
 
 
   def complete
-    @step.update_attributes(:completed=>true, :date=>Date.today)
+	day_dif=(Date.today-(@step.date+@step.days.to_i.days) ).to_i
+    @step.update_attributes(:completed=>true, :days=>day_dif)
+	
 	redirect_to steps_path(:brew=>@step.brew.id)
   end
 
