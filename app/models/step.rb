@@ -42,5 +42,10 @@ class Step < ActiveRecord::Base
 			o=o+1
 		end
 	end
+	
+	def complete
+		return false if Step.where("brew_id=? AND completed==false AND order<?", self.brew_id, self.order).count>0
+		self.update_attributes(:completed=>true)
+	end
 
 end
