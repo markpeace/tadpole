@@ -121,6 +121,7 @@ describe Step do
 		
 		it "should change days if completed early or late" do
 			Step.first.complete
+			Step.first.brew.date.should eq(Date.today)
 			Step.limit(2).last.complete
 			Step.limit(2).last.days.should eq(0)
 		end
