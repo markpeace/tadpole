@@ -1,2 +1,2 @@
-%h1 Calendar#index
-%p Find me in app/views/calendar/index.html.haml
+-@steps.each do |s|
+	%p="#{s.date} - #{s.brew.name}: #{s.title} (#{s.days} days)"

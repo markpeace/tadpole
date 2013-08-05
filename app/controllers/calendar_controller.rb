@@ -3,7 +3,7 @@ class CalendarController < ApplicationController
 	skip_before_filter :authenticate_user!
 	
 	def index
-		@steps=Step.where(:user_id=>params[:id])
+		@steps=Step.where(:user_id=>params[:id]).order("date DESC")
 		respond_to do |format|
 			format.html { render :index }
 			format.ics do
