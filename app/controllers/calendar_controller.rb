@@ -5,6 +5,7 @@ class CalendarController < ApplicationController
 	include Icalendar
 	
 	def index
+		user=User.find(params[:id])
 		respond_to do |format|
 			format.html do
 				@steps=Step.where(:user_id=>params[:id], :completed=>false).order("date DESC")
@@ -14,7 +15,7 @@ class CalendarController < ApplicationController
 				r=root_url
 				cal = Calendar.new
 			
-				current_user.brews.each do |b|
+				user.brews.each do |b|
 					steps=b.steps.where(:completed=>false).order("date ASC")
 					if steps.count>0 then
 						cal.event do
