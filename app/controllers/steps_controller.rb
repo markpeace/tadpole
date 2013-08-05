@@ -1,5 +1,5 @@
 class StepsController < ApplicationController
-  before_action :set_step, only: [:show, :edit, :update, :destroy, :move]
+  before_action :set_step, only: [:show, :edit, :update, :destroy, :move, :complete]
 
   # GET /steps
   # GET /steps.json
@@ -77,11 +77,18 @@ class StepsController < ApplicationController
 	@source_brew.steps.each do |s|
 		s2=s.dup
 		s2.brew=@target_brew
+		s2.completed=false
 		s2.save
 	end
 	
 	redirect_to steps_path(:brew=>@target_brew.id)
 	
+  end
+
+
+  def complete
+    @step.update_attributes(:completed=>true, :date=>Date.today)
+	redirect_to steps_path(:brew=>@step.brew.id)
   end
 
   private
