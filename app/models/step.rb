@@ -44,7 +44,13 @@ class Step < ActiveRecord::Base
 	end
 	
 	def complete
-		return false if Step.where("brew_id=? AND completed==false AND order<?", self.brew_id, self.order).count>0
+		return false if Step.where(:brew=>self.brew, :completed=>false).where("[order]<?", self.order).count>0
+		
+		if Date.today!=self.date+self.days.days then
+			Brew.date=Date.today if Brew.steps.order("[order] ASC").first.id == self.id
+			self.update_columns(:days=>0)
+		end
+		
 		self.update_attributes(:completed=>true)
 	end
 
