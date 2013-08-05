@@ -1,6 +1,5 @@
 Tadpole::Application.routes.draw do
-  
-
+ 
 	devise_for :users	
 	root :to=>"brews#index"
 
@@ -9,5 +8,7 @@ Tadpole::Application.routes.draw do
 
 	resources :steps
 	post "/steps/:id/move/:direction"=>"steps#move"
+	
+	get "user/:id/calendar"=>"calendar#index"
 
 end
