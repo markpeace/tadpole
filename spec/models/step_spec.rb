@@ -90,7 +90,36 @@ describe Step do
 			Step.limit(1).last.date.strftime('%Y-%d-%m').should eq('2014-06-01')
 			Step.limit(3).last.date.strftime('%Y-%d-%m').should eq('2014-11-01')		
 		end
+	end
+	
+	describe "should have a complete function" do
+	
+		before :each do
+			u1=FactoryGirl.create(:step, order:nil, days: 5)
+			u2=FactoryGirl.create(:step, user: u1.user, brew: u1.brew, order:nil, days: 5)	
+			u3=FactoryGirl.create(:step, user: u1.user, brew: u1.brew, order:nil, days: 5)	
+		end
 		
+		it "should complete when complete is called" do
+			Step.first.complete
+			Step.first.completed.should be_true
+		end
+		
+		it "should not complete if prior steps are incomplete" do
+			Step.limit(2).last.complete
+			Step.limit(2).last.completed.should be_false
+		end
+		
+		it "should ammend the brewdate if it is the first step" do
+			Step.first.complete
+			Step.brew.date.should eq(Date.today)
+		end
+		
+		it "should change days if completed early or late" do
+			Step.first.complete
+			Step.limit(2).last.complete
+			Step.limit(2).last.days.should eq(0)
+		end
 	end
 	
 end
