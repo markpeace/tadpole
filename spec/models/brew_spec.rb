@@ -13,6 +13,8 @@ describe Brew do
 	it { should belong_to :user }
 	it { should validate_presence_of :user }
 	
+	it { should have_many(:steps).dependent(:destroy) }
+	
 	it { should validate_presence_of :name }
 
 	describe "it should have a function that scrapes data from brewtoad" do

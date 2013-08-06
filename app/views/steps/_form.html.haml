@@ -1,0 +1,23 @@
+= form_for @step do |f|
+  - if @step.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@step.errors.count, "error")} prohibited this step from being saved:"
+      %ul
+        - @step.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.hidden_field :user_id
+  .field
+    = f.hidden_field :brew_id
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :days
+    = f.number_field :days
+  .field
+    = f.label :update_inventory
+    = f.check_box :update_inventory
+  .actions
+    = f.submit 'Save'
