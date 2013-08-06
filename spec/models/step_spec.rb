@@ -114,11 +114,6 @@ describe Step do
 			Step.limit(2).last.completed.should be_false
 		end
 		
-		it "should ammend the brewdate if it is the first step" do
-			Step.first.complete
-			Step.first.brew.date.should eq(Date.today)
-		end
-		
 		it "should change days if completed early or late" do
 			Step.first.complete
 			Step.first.brew.date.should eq(Date.today)
