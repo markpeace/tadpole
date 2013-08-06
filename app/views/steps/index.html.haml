@@ -1,0 +1,35 @@
+%h1 
+  Listing Steps For
+  =@brew.name
+
+%table
+  %tr
+    %th Start
+    %th Title
+    %th Days
+    %th End
+    %th Completed
+    %th Update inventory
+    %th
+    %th
+    %th
+    %th
+    %th
+
+  - @steps.each do |step|
+    %tr
+      %td= step.date
+      %td= step.title
+      %td= step.days
+      %td= step.date + step.days.days
+      %td= step.completed
+      %td= step.update_inventory
+      %td= link_to 'Edit', edit_step_path(step)
+      %td= link_to 'Destroy', step, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to 'Move Up', "/steps/#{step.id}/move/up", :method=>:post
+      %td= link_to 'Move Down', "/steps/#{step.id}/move/down", :method=>:post
+
+%br
+
+= link_to 'Back to Batches', root_path
+= link_to 'New Step', new_step_path(:brew=>@brew.id)

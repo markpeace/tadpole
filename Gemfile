@@ -53,3 +53,9 @@ gem 'devise'
 gem 'heroku'
 gem 'haml-rails'
 gem 'nokogiri'
+gem 'taps'
+
+gem 'icalendar'
+
+gem 'simple_form'
+gem 'nested_form'
