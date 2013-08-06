@@ -46,11 +46,12 @@ class Step < ActiveRecord::Base
 	def complete
 		return false if Step.where(:brew=>self.brew, :completed=>false).where("[order]<?", self.order).count>0
 		
-		if Date.today!=self.date+self.days.days then
-			self.update_columns(:days=>((self.date+self.days.days)-Date.today).days) unless self.brew.steps.order("[order] ASC").first.id == self.id
-		end
+		start_date = self.date
+		end_date = Date.today
 		
-		self.update_attributes(:completed=>true)
+		day_difference = ( end_date - start_date ).to_i
+	
+		self.update_attributes(:completed=>true, :days=>day_difference)
 	end
 
 end

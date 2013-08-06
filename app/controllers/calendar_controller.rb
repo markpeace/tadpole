@@ -8,14 +8,6 @@ class CalendarController < ApplicationController
 		user=User.find(params[:id])
 		respond_to do |format|
 			format.html do
-				user.brews.each do |b|
-					b.update_attributes(:brewed=>false, :date=>(Date.today-10.days))
-				end
-				
-				user.steps.each do |s|
-					s.update_attributes(:completed=>false, :days=>7)
-				end
-
 				@steps=Step.where(:user_id=>params[:id], :completed=>false).order("date DESC")
 				render :index
 			end
