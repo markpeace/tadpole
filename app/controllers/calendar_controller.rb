@@ -8,11 +8,20 @@ class CalendarController < ApplicationController
 		user=User.find(params[:id])
 		respond_to do |format|
 			format.html do
+				user.brews.each do |b|
+					b.update_attributes(:brewed=>false, :date=>(Date.today-10.days))
+				end
+				
+				user.steps.each do |s|
+					s.update_attributes(:completed=>false, :days=>7)
+				end
+
 				@steps=Step.where(:user_id=>params[:id], :completed=>false).order("date DESC")
 				render :index
 			end
 			format.ics do
 				r=root_url
+				prev_id=-1
 				cal = Calendar.new
 			
 				user.brews.each do |b|
@@ -22,30 +31,32 @@ class CalendarController < ApplicationController
 							dtstart	b.date
 							dtend b.date
 							summary "Brew #{b.name}"
-						end
-							
+						end unless b.brewed
+
 						steps.each_with_index do |s,i|
-							cal.event do
-								dtstart	s.date
-								dtend s.date
-								summary "#{b.name} to #{s.title} for #{s.days} days"
-								if i>0 then
-									description "You cannot complete this step as prior ones are still incomplete"
+							cal.event do |c|
+								c.dtstart	s.date
+								c.dtend s.date
+								c.summary "#{b.name} to #{s.title} for #{s.days} days"
+								if (s.brew.brewed and i>1) or (!s.brew.brewed and i>0) then
+									c.description "You cannot complete this step until previous ones are complete"
 								else
 									if s.order==1 then
-										description "Click this link to mark step as complete: 
-													#{r}brews/#{s.brew.id}/setdate"
+										c.description "Click this link to mark step as complete: 
+													#{r}brews/#{s.brew.id}/setdate"										
 									else
-										description "Click this link to mark step as complete: #{r}steps/#{id}/complete"
+										c.description "Click this link to mark step as complete: 
+													#{r}steps/#{prev_id}/complete"
 									end
 								end
-							end
-							id=s.id
+							end unless s.brew.brewed==true and i==0
+							prev_id=s.id
+
 						end
 						
 					end
 				end
-				
+								
 				cal.publish
 				headers['Content-Type'] = "text/calendar; charset=UTF-8"
 				render :text => cal.to_ical, :layout=>false

@@ -63,7 +63,7 @@ class BrewsController < ApplicationController
   end
 
   def setdate
-	@brew.update_attributes(:date=>Date.today)
+	@brew.update_attributes(:date=>Date.today, :brewed=>true)
 	@brew.steps.first.autocalculate_dates
 	redirect_to steps_path(:brew=>@brew.id)
   end
@@ -77,6 +77,6 @@ class BrewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def brew_params
-      params.require(:brew).permit(:user_id, :name, :date)
+      params.require(:brew).permit(:user_id, :name, :date, :brewed)
     end
 end
