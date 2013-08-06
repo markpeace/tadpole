@@ -23,15 +23,24 @@ class CalendarController < ApplicationController
 							dtend b.date
 							summary "Brew #{b.name}"
 						end
-		
+							
 						steps.each_with_index do |s,i|
 							cal.event do
 								dtstart	s.date
 								dtend s.date
 								summary "#{b.name} to #{s.title} for #{s.days} days"
-								description "Click this link to mark step as complete: #{r}steps/#{s.id}/complete" if i==0
-								description "You cannot complete this step as prior ones are still incomplete" if i>0
+								if i>0 then
+									description "You cannot complete this step as prior ones are still incomplete"
+								else
+									if s.order==1 then
+										description "Click this link to mark step as complete: 
+													#{r}brews/#{s.brew.id}/setdate"
+									else
+										description "Click this link to mark step as complete: #{r}steps/#{id}/complete"
+									end
+								end
 							end
+							id=s.id
 						end
 						
 					end

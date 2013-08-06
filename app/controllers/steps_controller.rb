@@ -1,5 +1,5 @@
 class StepsController < ApplicationController
-  before_action :set_step, only: [:show, :edit, :update, :destroy, :move, :complete]
+  before_action :set_step, only: [:show, :edit, :update, :destroy, :move]
 
   # GET /steps
   # GET /steps.json
@@ -87,7 +87,10 @@ class StepsController < ApplicationController
 
 
   def complete
-    @step.complete	
+    if @step=Step.find(params[:id] then
+		@step.complete
+	else
+	end
 	redirect_to steps_path(:brew=>@step.brew.id)
   end
 
