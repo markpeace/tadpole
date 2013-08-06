@@ -5,6 +5,7 @@ Tadpole::Application.routes.draw do
 
     resources :brews
     post "/brew/:target_brew/importsteps"=>"steps#clone"
+	get "/brews/:id/setdate"=>"brews#setdate"
 
 	resources :steps
 	post "/steps/:id/move/:direction"=>"steps#move"

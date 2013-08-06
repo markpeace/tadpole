@@ -87,7 +87,7 @@ class StepsController < ApplicationController
 
 
   def complete
-    if @step=Step.find(params[:id] then
+    if @step=Step.find(params[:id]) then
 		@step.complete
 	else
 	end

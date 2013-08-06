@@ -1,5 +1,5 @@
 class BrewsController < ApplicationController
-  before_action :set_brew, only: [:show, :edit, :update, :destroy]
+  before_action :set_brew, only: [:show, :edit, :update, :destroy, :setdate]
 
   # GET /brews
   # GET /brews.json
@@ -62,6 +62,12 @@ class BrewsController < ApplicationController
     end
   end
 
+  def setdate
+	@brew.update_attributes(:date=>Date.today)
+	@brew.steps.first.autocalculate_dates
+	redirect_to steps_path(:brew=>@brew.id)
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_brew
