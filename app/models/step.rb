@@ -48,7 +48,7 @@ class Step < ActiveRecord::Base
 		
 		if Date.today!=self.date+self.days.days then
 			self.brew.update_attributes(:date=>Date.today) if self.brew.steps.order("[order] ASC").first.id == self.id
-			self.update_columns(:days=>((self.date+self.days.days)-Date.today)) unless self.brew.steps.order("[order] ASC").first.id == self.id
+			self.update_columns(:days=>((self.date+self.days.days)-Date.today).days) unless self.brew.steps.order("[order] ASC").first.id == self.id
 		end
 		
 		self.update_attributes(:completed=>true)
