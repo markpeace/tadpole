@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130806163010) do
+ActiveRecord::Schema.define(version: 20130807063807) do
 
   create_table "brews", force: true do |t|
     t.integer   "user_id"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20130806163010) do
     t.integer  "brew_id"
     t.string   "title"
     t.integer  "days"
-    t.integer  "order"
+    t.integer  "steporder"
     t.date     "date"
     t.boolean  "completed",        default: false
     t.boolean  "update_inventory"

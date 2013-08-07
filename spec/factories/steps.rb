@@ -6,7 +6,7 @@ FactoryGirl.define do
     association :brew, :factory=>:brew
     title "MyString"
     days 1
-    order 1
+    steporder 1
     date "2013-08-04"
     completed false
     update_inventory false

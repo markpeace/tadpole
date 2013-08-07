@@ -11,18 +11,18 @@ class Step < ActiveRecord::Base
 	
 	before_create :autocalculate_order
 	def autocalculate_order
-		self.order = Step.where(:brew_id=>self.brew_id).count+1
+		self.steporder = Step.where(:brew_id=>self.brew_id).count+1
 	end
 	
 	def move(direction)
 		if direction==:up then
-			return if self.order==1
-			Step.where(:brew_id=>self.brew_id, :order=>self.order-1).first.update_columns(:order=>self.order)
-			self.update_columns(:order=>self.order-1)
+			return if self.steporder==1
+			Step.where(:brew_id=>self.brew_id, :steporder=>self.steporder-1).first.update_columns(:steporder=>self.steporder)
+			self.update_columns(:steporder=>self.steporder-1)
 		elsif direction==:down then
-			return if self.order==Step.where(:brew_id=>self.brew_id).count
-			Step.where(:brew_id=>self.brew_id, :order=>self.order+1).first.update_columns(:order=>self.order)
-			self.update_columns(:order=>self.order+1)
+			return if self.steporder==Step.where(:brew_id=>self.brew_id).count
+			Step.where(:brew_id=>self.brew_id, :steporder=>self.steporder+1).first.update_columns(:steporder=>self.steporder)
+			self.update_columns(:steporder=>self.steporder+1)
 		end 
 		self.autocalculate_dates
 	end
@@ -35,8 +35,8 @@ class Step < ActiveRecord::Base
 		d=self.brew.date
 		i=0
 		o=1
-		Step.where(:brew_id=>self.brew_id).order("[order] ASC").each do |s|
-			s.update_columns(:date=>d + i, :order=>o)
+		Step.where(:brew_id=>self.brew_id).order("[steporder] ASC").each do |s|
+			s.update_columns(:date=>d + i, :steporder=>o)
 			i=s.days.to_i
 			d=s.date
 			o=o+1
@@ -44,7 +44,7 @@ class Step < ActiveRecord::Base
 	end
 	
 	def complete
-		return false if Step.where(:brew=>self.brew, :completed=>false).where("[order]<?", self.order).count>0
+		return false if Step.where(:brew=>self.brew, :completed=>false).where("[steporder]<?", self.steporder).count>0
 		
 		start_date = self.date
 		end_date = Date.today

@@ -33,7 +33,7 @@ class CalendarController < ApplicationController
 								if (s.brew.brewed and i>1) or (!s.brew.brewed and i>0) then
 									c.description "You cannot complete this step until previous ones are complete"
 								else
-									if s.order==1 then
+									if s.steporder==1 then
 										c.description "Click this link to mark step as complete: 
 													#{r}brews/#{s.brew.id}/setdate"										
 									else
