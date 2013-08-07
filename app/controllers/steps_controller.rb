@@ -6,7 +6,7 @@ class StepsController < ApplicationController
   def index
 	@brew=Brew.find(params[:brew])
 	redirect_to root_path unless @brew.user==current_user
-    @steps = Step.where(:brew=>@brew).order("[order] ASC")
+    @steps = Step.where(:brew=>@brew).order(:steporder)
   end
 
   # GET /steps/1
@@ -103,6 +103,6 @@ class StepsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def step_params
-      params.require(:step).permit(:user_id, :brew_id, :title, :days, :order, :date, :completed, :update_inventory)
+      params.require(:step).permit(:user_id, :brew_id, :title, :days, :steporder, :date, :completed, :update_inventory)
     end
 end
