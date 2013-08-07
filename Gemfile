@@ -50,7 +50,10 @@ group :test, :development do
 end
 
 gem 'devise'
+
 gem 'heroku'
+gem 'rails_12factor', group: :production
+
 gem 'haml-rails'
 gem 'nokogiri'
 gem 'taps'
