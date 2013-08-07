@@ -35,7 +35,7 @@ class Step < ActiveRecord::Base
 		d=self.brew.date
 		i=0
 		o=1
-		Step.where(:brew_id=>self.brew_id).order("[steporder] ASC").each do |s|
+		Step.where(:brew_id=>self.brew_id).order("steporder ASC").each do |s|
 			s.update_columns(:date=>d + i, :steporder=>o)
 			i=s.days.to_i
 			d=s.date
@@ -44,7 +44,7 @@ class Step < ActiveRecord::Base
 	end
 	
 	def complete
-		return false if Step.where(:brew=>self.brew, :completed=>false).where("[steporder]<?", self.steporder).count>0
+		return false if Step.where(:brew=>self.brew, :completed=>false).where("steporder<?", self.steporder).count>0
 		
 		start_date = self.date
 		end_date = Date.today
