@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :inventory do
-    user_id 1
+    association :user, :factory=>:user
     label "MyText"
     grams 1
   end
