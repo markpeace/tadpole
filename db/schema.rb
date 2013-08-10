@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130807063807) do
+ActiveRecord::Schema.define(version: 20130810134245) do
 
   create_table "brews", force: true do |t|
     t.integer   "user_id"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 20130807063807) do
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.boolean   "brewed",     default: false
+  end
+
+  create_table "inventories", force: true do |t|
+    t.integer  "user_id"
+    t.text     "label"
+    t.integer  "grams"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "steps", force: true do |t|

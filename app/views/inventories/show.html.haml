@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @inventory.user_id
+%p
+  %b Label:
+  = @inventory.label
+%p
+  %b Grams:
+  = @inventory.grams
+
+= link_to 'Edit', edit_inventory_path(@inventory)
+\|
+= link_to 'Back', inventories_path

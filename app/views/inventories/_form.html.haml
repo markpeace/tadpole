@@ -1,0 +1,10 @@
+= simple_form_for(@inventory) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :user_id
+    = f.input :label
+    = f.input :grams
+
+  .actions
+    = f.button :submit
