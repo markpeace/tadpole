@@ -3,7 +3,14 @@ class InventoriesController < ApplicationController
 
   
   def shoppinglist
-	@list=Brew.shoppinglist(Date.today + 1.year, current_user)
+	params[:Inventory].each do |key,value|
+		i=Inventory.new
+		i.user=current_user
+		i.label=key
+		i.grams=value
+		i.save
+	end if params[:Inventory]
+	@shopping_list=Brew.shoppinglist(Date.today + 1.year, current_user)
   end
   
   # GET /inventories
