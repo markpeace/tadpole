@@ -2,7 +2,6 @@
 
 %table
   %tr
-    %th User
     %th Label
     %th Grams
     %th
@@ -11,7 +10,6 @@
 
   - @inventories.each do |inventory|
     %tr
-      %td= inventory.user_id
       %td= inventory.label
       %td= inventory.grams
       %td= link_to 'Show', inventory
