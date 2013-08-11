@@ -10,7 +10,8 @@ class InventoriesController < ApplicationController
 		i.grams=value
 		i.save
 	end if params[:Inventory]
-	@shopping_list=Brew.shoppinglist(Date.today + 1.year, current_user)
+	@end_date=params[:brewdate] rescue Date.today + 10.years
+	@shopping_list=Brew.shoppinglist(@end_date, current_user)
   end
   
   # GET /inventories

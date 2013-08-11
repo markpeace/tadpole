@@ -28,7 +28,7 @@ class Brew < ActiveRecord::Base
 	
 		Brew.where(["brewed=? AND user_id=? AND date<?", false, user, todate]).each do |b|
 			[:HOP, :FERMENTABLE, :YEAST].each do | addition_type |
-				Brew.first.xml.root.search("//#{addition_type}").each do | addition |
+				b.xml.root.search("//#{addition_type}").each do | addition |
 					l=addition.css("NAME").children[0].content
 					amount = addition.css("DISPLAY_AMOUNT").children[0].content rescue "1 g"
 					amount = process_units(amount)

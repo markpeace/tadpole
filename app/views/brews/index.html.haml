@@ -1,9 +1,12 @@
 %h1 Listing brews
 
+=link_to "View Inventory", "/inventories"
+
 %table
   %tr
     %th Name
     %th Brew Date
+    %th
     %th
     %th
     %th
@@ -17,6 +20,7 @@
       %td= link_to 'Show', brew
       %td= link_to 'Edit', edit_brew_path(brew)
       %td= link_to 'Destroy', brew, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to 'Show Shopping List Up To This Brew', "/inventories/shoppinglist/#{brew.date + 1.day}"
 
 %br
 

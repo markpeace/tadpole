@@ -13,8 +13,8 @@ Tadpole::Application.routes.draw do
 	
 	get "user/:id/calendar"=>"calendar#index"
 	
-	get "/inventories/shoppinglist"=>"inventories#shoppinglist"
-	post "/inventories/shoppinglist"=>"inventories#shoppinglist"
+	get "/inventories/shoppinglist/:brewdate"=>"inventories#shoppinglist"
+	post "/inventories/shoppinglist/:brewdate"=>"inventories#shoppinglist"
 	resources :inventories
 
 end
