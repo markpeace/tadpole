@@ -8,6 +8,14 @@ class Brew < ActiveRecord::Base
 	
 	validates_presence_of :name
 
+	after_update :process_inventory, :if=>proc{|o| o.brewed==true}
+	def process_inventory
+		
+		Brew.all.each do |b| 
+			b.update_attributes(:brewed=>false) 
+		end
+	end
+	
 	validate { errors.add(:base, 'The recipe must appear on BrewToad') unless xml }
 	def xml
 		require 'open-uri'
