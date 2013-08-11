@@ -5,7 +5,7 @@ class InventoriesController < ApplicationController
   def shoppinglist
 	params[:Inventory].each do |key,value|
 		i=Inventory.new
-		i.user=current_user
+		i.user_id=current_user.id
 		i.label=key
 		i.grams=value
 		i.save

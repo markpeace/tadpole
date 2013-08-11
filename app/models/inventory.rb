@@ -8,7 +8,7 @@ class Inventory < ActiveRecord::Base
 	after_save :combine_if_duplicate
 	def combine_if_duplicate
 		
-		if e=Inventory.where("label=? AND id!=? AND user_id!=?", self.label, self.id, self.user_id).first then
+		if e=Inventory.where("label=? AND id!=? AND user_id=?", self.label, self.id, self.user_id).first then
 			e.update_columns(:grams=>e.grams+self.grams)
 			self.destroy 
 		end
