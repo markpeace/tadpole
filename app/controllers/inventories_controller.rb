@@ -4,7 +4,7 @@ class InventoriesController < ApplicationController
   # GET /inventories
   # GET /inventories.json
   def index
-    @inventories = Inventory.all
+    @inventories = Inventory.where(:user=>current_user)
   end
 
   # GET /inventories/1
@@ -15,6 +15,7 @@ class InventoriesController < ApplicationController
   # GET /inventories/new
   def new
     @inventory = Inventory.new
+	@inventory.user=current_user
   end
 
   # GET /inventories/1/edit
@@ -65,6 +66,7 @@ class InventoriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_inventory
       @inventory = Inventory.find(params[:id])
+	  redirect_to root_path unless @inventory.user==current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
