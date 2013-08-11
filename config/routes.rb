@@ -1,6 +1,4 @@
 Tadpole::Application.routes.draw do
- 
-  resources :inventories
 
 	devise_for :users	
 	root :to=>"brews#index"
@@ -14,5 +12,8 @@ Tadpole::Application.routes.draw do
 	get "/steps/:id/complete"=>"steps#complete"
 	
 	get "user/:id/calendar"=>"calendar#index"
+	
+	get "/inventories/shoppinglist"=>"inventories#shoppinglist"
+	resources :inventories
 
 end

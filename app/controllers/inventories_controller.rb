@@ -1,6 +1,10 @@
 class InventoriesController < ApplicationController
   before_action :set_inventory, only: [:show, :edit, :update, :destroy]
 
+  
+  def shoppinglist
+  end
+  
   # GET /inventories
   # GET /inventories.json
   def index
