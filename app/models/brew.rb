@@ -22,4 +22,8 @@ class Brew < ActiveRecord::Base
 		return doc
 	end
 	
+	def self.shoppinglist(todate)
+		"Hi"
+	end
+	
 end

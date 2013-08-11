@@ -3,6 +3,7 @@ class InventoriesController < ApplicationController
 
   
   def shoppinglist
+	@list=Brew.shoppinglist(Date.today + 1.year)
   end
   
   # GET /inventories
