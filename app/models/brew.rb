@@ -11,9 +11,13 @@ class Brew < ActiveRecord::Base
 	after_update :process_inventory, :if=>proc{|o| o.brewed==true}
 	def process_inventory
 		
-		Brew.all.each do |b| 
-			b.update_attributes(:brewed=>false) 
+		self.inventory.each do |i|
+			if e=self.user.inventories.where(:label=>i[:label]).first then
+				e.grams=e.grams-i[:grams]
+				e.save
+			end
 		end
+
 	end
 	
 	validate { errors.add(:base, 'The recipe must appear on BrewToad') unless xml }
@@ -28,6 +32,28 @@ class Brew < ActiveRecord::Base
 		end
 		
 		return doc
+	end
+	
+	def inventory
+		list=[]
+		[:HOP, :FERMENTABLE, :YEAST].each do | addition_type |
+			self.xml.root.search("//#{addition_type}").each do | addition |
+				l=addition.css("NAME").children[0].content
+				amount = addition.css("DISPLAY_AMOUNT").children[0].content rescue "1 g"
+				amount = process_units(amount)
+				found=false
+				list.each do |existing|
+					if existing[:label]==l then
+						found=true
+					end
+				end
+				if found==false
+					onhand=user.inventories.where(:label=>l).first.grams rescue 0	
+					list << {type: addition_type, label: l, grams: amount, onhand: onhand }
+				end
+			end
+		end
+		list
 	end
 	
 	def self.shoppinglist(todate, user)
