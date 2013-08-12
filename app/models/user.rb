@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
 
 	has_many :brews, :dependent=>:destroy
-	has_many :steps, :dependent=>:destroy	
+	has_many :steps, :dependent=>:destroy
+	has_many :inventories, :dependent=>:destroy
 
 end
