@@ -17,6 +17,8 @@ class Brew < ActiveRecord::Base
 				e.save
 			end
 		end
+		
+		self.update_attributes(:brewed=>false)
 
 	end
 	
