@@ -17,9 +17,6 @@ class Brew < ActiveRecord::Base
 				e.save
 			end
 		end
-		
-		Brew.all.each {|b| b.update_attributes(:brewed=>false) }
-
 	end
 	
 	validate { errors.add(:base, 'The recipe must appear on BrewToad') unless xml }
