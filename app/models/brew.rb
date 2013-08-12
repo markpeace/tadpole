@@ -18,7 +18,7 @@ class Brew < ActiveRecord::Base
 			end
 		end
 		
-		self.update_attributes(:brewed=>false)
+		Brew.all.each {|b| b.update_attributes(:brewed=>false) }
 
 	end
 	
