@@ -46,6 +46,7 @@ class Brew < ActiveRecord::Base
 				found=false
 				list.each do |existing|
 					if existing[:label]==l then
+						existing[:grams]=existing[:grams]+amount
 						found=true
 					end
 				end
@@ -63,22 +64,15 @@ class Brew < ActiveRecord::Base
 		list=[]
 	
 		Brew.where(["brewed=? AND user_id=? AND date<?", false, user, todate]).each do |b|
-			[:HOP, :FERMENTABLE, :YEAST].each do | addition_type |
-				b.xml.root.search("//#{addition_type}").each do | addition |
-					l=addition.css("NAME").children[0].content
-					amount = addition.css("DISPLAY_AMOUNT").children[0].content rescue "1 g"
-					amount = process_units(amount)
-					found=false
-					list.each do |existing|
-						if existing[:label]==l then
-							found=true
-						end
-					end
-					if found==false
-						onhand=user.inventories.where(:label=>l).first.grams rescue 0	
-						list << {type: addition_type, label: l, grams: amount, onhand: onhand }
+			b.inventory.each do |i|
+				found=false
+				list.each do |existing|
+					if existing[:label]==i[:label] then
+						existing[:grams]=existing[:grams]+i[:grams]
+						found=true
 					end
 				end
+				list<<i unless found
 			end
 		end
 
