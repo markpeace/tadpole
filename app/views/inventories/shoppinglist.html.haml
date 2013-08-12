@@ -1,0 +1,30 @@
+%h1 Shopping List
+
+-Brew.first.inventory.inspect
+
+=form_for "Inventory" do |f|
+	%table
+		%tr
+			%th Type
+			%th Name
+			%th Recipes(g)
+			%th Onhand (g)
+			%th To Buy (g)
+			%th After Placing an Order, Put Bought Amounts Here:
+
+		- @shopping_list.each do |item|
+			%tr
+				%td=item[:type]
+				%td=item[:label]
+				%td=item[:grams]
+				%td=item[:onhand]
+				%td=item[:grams]-item[:onhand]
+				%td=f.text_field item[:label]
+
+		%tr
+			%td
+			%td
+			%td
+			%td
+			%td
+			%td=f.submit "Increase Inventory"
