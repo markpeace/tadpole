@@ -38,8 +38,9 @@ class Brew < ActiveRecord::Base
 	
 	def inventory
 		list=[]
+		x=self.xml
 		[:HOP, :FERMENTABLE, :YEAST].each do | addition_type |
-			self.xml.root.search("//#{addition_type}").each do | addition |
+			x.root.search("//#{addition_type}").each do | addition |
 				l=addition.css("NAME").children[0].content
 				amount = addition.css("DISPLAY_AMOUNT").children[0].content rescue "1 g"
 				amount = process_units(amount)
