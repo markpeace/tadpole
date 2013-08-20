@@ -1,27 +1,31 @@
-%h1 Listing brews
+.row
+	.span8
+		%h3 Scheduled Brews (#{link_to 'New', new_brew_path})
+		%table.table.table-condensed.table-striped.table-hover
+			%tr
+				%th
+				%th Date
+				%th Name
+				%th
 
-=link_to "View Inventory", "/inventories"
-
-%table
-  %tr
-    %th Name
-    %th Brew Date
-    %th
-    %th
-    %th
-    %th
-    %th
-
-  - @brews.each do |brew|
-    %tr
-      %td= brew.name
-      %td= brew.date
-      %td= link_to 'Steps', steps_path(:brew=>brew.id)
-      %td= link_to 'Show', brew
-      %td= link_to 'Edit', edit_brew_path(brew)
-      %td= link_to 'Destroy', brew, :method => :delete, :data => { :confirm => 'Are you sure?' }
-      %td= link_to 'Show Shopping List Up To This Brew', "/inventories/shoppinglist/#{brew.date + 1.day}"
-
-%br
-
-= link_to 'New Brew', new_brew_path
+			- @brews.each do |brew|
+				%tr
+					%td.text-center
+						-if brew.brewed
+							%i.icon-check 
+					%td=brew.date
+					%td=link_to brew.name, brew
+					%td
+						=link_to "/inventories/shoppinglist/#{brew.date + 1.day}" do
+							%i.icon-shopping-cart
+	.span4
+		%h3 Tasks
+		%table.table.table-condensed.table-striped.table-hover
+			- @tasks.each do |task|
+				%tr
+					%td.text-center
+						-if task.completed
+							%i.icon-check 
+					%td
+						="#{task.brew.name}: #{task.title} (#{task.date})"
+						
