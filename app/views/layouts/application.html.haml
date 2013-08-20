@@ -37,7 +37,7 @@
 									%ul.nav.pull-right
 										%li=link_to "Brews", Brew
 										%li=link_to "Inventory", Inventory
-										%li=link_to "Calendar", "/user/#{current_user.id}/calendar"
+										%li=link_to "Calendar", "/user/#{current_user.id}/calendar" rescue nil
 
 			.row
 				.span12
