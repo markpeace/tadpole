@@ -1,11 +1,13 @@
 .row
-	.span8
+	.span9
 		%h3 Scheduled Brews (#{link_to 'New', new_brew_path})
 		%table.table.table-condensed.table-striped.table-hover
 			%tr
 				%th
 				%th Date
 				%th Name
+				%th
+				%th
 				%th
 
 			- @brews.each do |brew|
@@ -15,10 +17,12 @@
 							%i.icon-check 
 					%td=brew.date
 					%td=link_to brew.name, brew
+					%td=link_to '', edit_brew_path(brew), :class=>'icon-pencil'
+					%td=link_to '', brew, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>'icon-remove'
 					%td
 						=link_to "/inventories/shoppinglist/#{brew.date + 1.day}" do
 							%i.icon-shopping-cart
-	.span4
+	.span3
 		%h3 Tasks
 		%table.table.table-condensed.table-striped.table-hover
 			- @tasks.each do |task|
@@ -27,5 +31,6 @@
 						-if task.completed
 							%i.icon-check 
 					%td
-						="#{task.brew.name}: #{task.title} (#{task.date})"
+						="#{task.brew.name}: #{task.title}"
+						.muted="#{task.date} to #{task.date+task.days}"
 						
