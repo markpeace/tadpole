@@ -8,11 +8,6 @@ class BrewsController < ApplicationController
 	@tasks = current_user.steps.where('completed=? OR date>?', false, Date.today).order(:date)
   end
 
-  # GET /brews/1
-  # GET /brews/1.json
-  def show
-  end
-
   # GET /brews/new
   def new
     @brew = Brew.new

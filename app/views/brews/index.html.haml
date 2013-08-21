@@ -16,7 +16,7 @@
 						-if brew.brewed
 							%i.icon-check 
 					%td=brew.date
-					%td=link_to brew.name, brew
+					%td=link_to brew.name, steps_path(:brew=>brew.id)
 					%td=link_to '', edit_brew_path(brew), :class=>'icon-pencil'
 					%td=link_to '', brew, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>'icon-remove'
 					%td
