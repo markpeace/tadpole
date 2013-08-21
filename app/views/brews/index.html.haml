@@ -1,6 +1,7 @@
 .row
-	.span9
+	.span8
 		%h3 Scheduled Brews (#{link_to 'New', new_brew_path})
+
 		%table.table.table-condensed.table-striped.table-hover
 			%tr
 				%th
@@ -22,7 +23,7 @@
 					%td
 						=link_to "/inventories/shoppinglist/#{brew.date + 1.day}" do
 							%i.icon-shopping-cart
-	.span3
+	.span4
 		%h3 Tasks
 		%table.table.table-condensed.table-striped.table-hover
 			- @tasks.each do |task|
