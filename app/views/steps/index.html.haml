@@ -1,8 +1,15 @@
 .row
-	.span6
-		%h3=@brew.name
-		%p Mark
-	.span6
+	.span3
+		.row
+			%h3=@brew.name
+			%p
+				Brew Date:
+				=@brew.date
+		.row
+			= simple_form_for "submit", :url=>"/brew/#{@brew.id}/importsteps" do |f|
+				=f.input :source_brew, collection:@brew.user.brews, :label=>"Import Steps From"
+				=f.submit
+	.span9
 		%h3 Process Steps (#{link_to "New", new_step_path(:brew_id=>@brew.id)})
 		
 		%table.table.table-condensed.table-striped.table-hover
@@ -18,7 +25,3 @@
 					%td=link_to '', "/steps/#{step.id}/move/down", :method=>:post, :class=>'icon-arrow-down'
 					%td=link_to '', '', :class=>'icon-pencil'
 					%td=link_to '', '', :class=>'icon-remove'
-		
-		= simple_form_for "submit", :url=>"/brew/#{@brew.id}/importsteps" do |f|
-			=f.input :source_brew, collection:@brew.user.brews, :label=>"Import Steps From"
-			=f.submit
