@@ -4,12 +4,8 @@ class BrewsController < ApplicationController
   # GET /brews
   # GET /brews.json
   def index
-    @brews = Brew.where(:user=>current_user).order('date DESC')
-  end
-
-  # GET /brews/1
-  # GET /brews/1.json
-  def show
+    @brews = current_user.brews.order('date DESC')
+	@tasks = current_user.steps.where('completed=? OR date>?', false, Date.today).order(:date)
   end
 
   # GET /brews/new

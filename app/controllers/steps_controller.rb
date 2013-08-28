@@ -74,7 +74,7 @@ class StepsController < ApplicationController
 	@source_brew=Brew.find(params[:submit][:source_brew])
 	@target_brew.steps.destroy_all
 	
-	@source_brew.steps.each do |s|
+	@source_brew.steps.order(:steporder).each do |s|
 		s2=s.dup
 		s2.brew=@target_brew
 		s2.completed=false

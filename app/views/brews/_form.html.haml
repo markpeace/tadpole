@@ -1,21 +1,8 @@
-= form_for @brew do |f|
-  - if @brew.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@brew.errors.count, "error")} prohibited this brew from being saved:"
-      %ul
-        - @brew.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.hidden_field :user_id
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :brew_date
-    = f.date_select :date
-  .field
-    = f.label :brewed
-    = f.check_box :brewed
-  .actions
-    = f.submit 'Save'
+= simple_form_for @brew do |f|
+	= f.hidden_field :user_id
+	= f.input :name, :label=>'BrewToad Recognised Name:'
+	= f.input :date
+	
+	.form-actions
+		= f.submit 'Save', :class=>'btn btn-primary'
+		= link_to :cancel, :back, :class=>'btn'

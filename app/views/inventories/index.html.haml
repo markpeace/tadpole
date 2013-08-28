@@ -1,21 +1,16 @@
-%h1 Listing inventories
+.row
+	%h3 Your Inventory (#{link_to 'New', new_inventory_path})
 
-%table
-  %tr
-    %th Label
-    %th Grams
-    %th
-    %th
-    %th
+	%table.table.table-condensed.table-striped.table-hover
+		%tr
+			%th Label
+			%th Grams
+			%th
+			%th
 
-  - @inventories.each do |inventory|
-    %tr
-      %td= inventory.label
-      %td= inventory.grams
-      %td= link_to 'Show', inventory
-      %td= link_to 'Edit', edit_inventory_path(inventory)
-      %td= link_to 'Destroy', inventory, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Inventory', new_inventory_path
+		- @inventories.each do |inventory|
+			%tr
+				%td= inventory.label
+				%td= inventory.grams
+				%td=link_to '', edit_inventory_path(inventory), :class=>'icon-pencil'
+				%td=link_to '', inventory, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>'icon-remove'
