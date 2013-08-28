@@ -25,7 +25,7 @@ class BrewsController < ApplicationController
 
     respond_to do |format|
       if @brew.save
-        format.html { redirect_to @brew, notice: 'Brew was successfully created.' }
+        format.html { redirect_to Brew, notice: 'Brew was successfully created.' }
         format.json { render action: 'show', status: :created, location: @brew }
       else
         format.html { render action: 'new' }
@@ -39,7 +39,7 @@ class BrewsController < ApplicationController
   def update
     respond_to do |format|
       if @brew.update(brew_params)
-        format.html { redirect_to @brew, notice: 'Brew was successfully updated.' }
+        format.html { redirect_to Brew, notice: 'Brew was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
