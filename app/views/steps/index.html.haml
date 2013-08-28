@@ -1,33 +1,27 @@
-%h1 
-  Listing Steps For
-  =@brew.name
-
-%table
-  %tr
-    %th Start
-    %th Title
-    %th Days
-    %th End
-    %th Completed
-    %th
-    %th
-    %th
-    %th
-    %th
-
-  - @steps.each do |step|
-    %tr
-      %td= step.date
-      %td= step.title
-      %td= step.days
-      %td= step.date + step.days.days
-      %td= step.completed
-      %td= link_to 'Edit', edit_step_path(step)
-      %td= link_to 'Destroy', step, :method => :delete, :data => { :confirm => 'Are you sure?' }
-      %td= link_to 'Move Up', "/steps/#{step.id}/move/up", :method=>:post
-      %td= link_to 'Move Down', "/steps/#{step.id}/move/down", :method=>:post
-
-%br
-
-= link_to 'Back to Batches', root_path
-= link_to 'New Step', new_step_path(:brew=>@brew.id)
+.row
+	.span3
+		.row
+			%h3=@brew.name
+			%p
+				Brew Date:
+				=@brew.date
+		.row
+			= simple_form_for "submit", :url=>"/brew/#{@brew.id}/importsteps" do |f|
+				=f.input :source_brew, collection:@brew.user.brews, :label=>"Import Steps From"
+				=f.submit
+	.span9
+		%h3 Process Steps (#{link_to "New", new_step_path(:brew_id=>@brew.id)})
+		
+		%table.table.table-condensed.table-striped.table-hover
+			-@brew.steps.order(:steporder).each do |step|
+				%tr
+					%td.text-center
+						-if step.completed==true
+							%i.icon-check 				
+					%td
+						="#{step.title} for #{step.days} days"
+						.muted="from #{step.date} to #{step.date + step.days.days}"
+					%td=link_to '', "/steps/#{step.id}/move/up", :method=>:post, :class=>'icon-arrow-up'
+					%td=link_to '', "/steps/#{step.id}/move/down", :method=>:post, :class=>'icon-arrow-down'
+					%td=link_to '', '', :class=>'icon-pencil'
+					%td=link_to '', '', :class=>'icon-remove'
