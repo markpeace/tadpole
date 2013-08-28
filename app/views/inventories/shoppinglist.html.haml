@@ -1,17 +1,16 @@
-%h1 Shopping List
+%h3 Shopping List
 
 -Brew.first.inventory.inspect
 
 =form_for "Inventory" do |f|
-	%table
+	%table.table.table-condensed.table-striped.table-hover
 		%tr
 			%th Type
 			%th Name
 			%th Recipes(g)
 			%th Onhand (g)
 			%th To Buy (g)
-			%th After Placing an Order, Put Bought Amounts Here:
-
+			%th Increment Amount
 		- @shopping_list.each do |item|
 			%tr
 				%td=item[:type]
