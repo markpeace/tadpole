@@ -23,5 +23,5 @@
 						.muted="from #{step.date} to #{step.date + step.days.days}"
 					%td=link_to '', "/steps/#{step.id}/move/up", :method=>:post, :class=>'icon-arrow-up'
 					%td=link_to '', "/steps/#{step.id}/move/down", :method=>:post, :class=>'icon-arrow-down'
-					%td=link_to '', '', :class=>'icon-pencil'
-					%td=link_to '', '', :class=>'icon-remove'
+					%td=link_to '', edit_step_path(step), :class=>'icon-pencil'
+					%td=link_to '', step, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>'icon-remove'
