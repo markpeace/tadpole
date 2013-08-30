@@ -10,7 +10,7 @@
 				=f.input :source_brew, collection:@brew.user.brews, :label=>"Import Steps From"
 				=f.submit
 	.span9
-		%h3 Process Steps (#{link_to "New", new_step_path(:brew_id=>@brew.id)})
+		%h3 Process Steps (#{link_to "New", new_step_path(:brew=>@brew.id)})
 		
 		%table.table.table-condensed.table-striped.table-hover
 			-@brew.steps.order(:steporder).each do |step|
